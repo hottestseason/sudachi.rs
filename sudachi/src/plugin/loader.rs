@@ -52,7 +52,7 @@ struct PluginLoader<'a, 'b, T: PluginCategory + ?Sized> {
     plugins: Vec<<T as PluginCategory>::BoxType>,
 }
 
-#[cfg(any(target_os = "linux", target_os = "freebsd"))]
+#[cfg(any(target_os = "linux", target_os = "freebsd", target_os = "android"))]
 fn make_system_specific_name(s: &str) -> String {
     format!("lib{}.so", s)
 }
@@ -62,7 +62,7 @@ fn make_system_specific_name(s: &str) -> String {
     format!("{}.dll", s)
 }
 
-#[cfg(target_os = "macos")]
+#[cfg(any(target_os = "macos", target_os = "ios"))]
 fn make_system_specific_name(s: &str) -> String {
     format!("lib{}.dylib", s)
 }
